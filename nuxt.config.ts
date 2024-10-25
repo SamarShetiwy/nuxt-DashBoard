@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxtjs/tailwindcss',
     '@nuxt/icon',
-  
+    '@element-plus/nuxt',
   ],
   css: ['./assets/style.scss'],
   plugins: [
