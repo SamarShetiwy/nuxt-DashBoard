@@ -7,9 +7,9 @@
                 h1 Sign In to your Account
                 p Welcome back! please enter your detail
                 UInput.input(placeholder="Email" icon="i-heroicons-envelope" color="none" variant="none") 
-                UInput.input.eye-pass( v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Password" icon="ph:lock-key-light" color="none" variant="none")
-                    template(#append)
-                        UIcon( :icon ="showPassword ? 'mdi:light--eye-off':'mdi:light--eye-off'" @click='togglePasswordView')
+                UInput.input( v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Password" icon="ph:lock-key-light" color="none" variant="none")
+                    template(#label)
+                        UIcon( :icon ="showPassword ? 'mdi-light:eye-off':'mdi-light:eye-off'" @click='togglePasswordView')
                 div.box
                     UCheckbox.checkbox(v-model="selected" color="primary")
                         template( #label)
@@ -26,6 +26,10 @@
                         
 
 <script setup lang="ts">
+
+definePageMeta({
+    layout:"login"
+})
 
 const selected = ref(false);
 const password = ref();

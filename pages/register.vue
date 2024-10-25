@@ -9,7 +9,7 @@
                 UInput.input(placeholder="Email" icon="i-heroicons-envelope" color="none" variant="none") 
                 UInput.input.eye-pass( v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Password" icon="ph:lock-key-light" color="none" variant="none")
                     template(#append)
-                        UIcon( :icon ="showPassword ? 'mdi:light--eye-off':'mdi:light--eye-off'" @click='togglePasswordView')
+                        UIcon( :icon ="showPassword ? 'mdi-light:eye-off':'mdi-light:eye-off'" @click='togglePasswordView')
                 p.pass Your password must have at least 8 characters
                 UCheckbox.checkbox(v-model="selected" color="primary")
                     template( #label)
@@ -20,7 +20,7 @@
                             span(style="font-weight: bold; color:#000000;") Privacy Policy
                 UButton.bottom(block) Signup
                 div.account.mt-2
-                    p.mt-1 Already have an account? 
+                    p.mt-1  Already have an account? 
                     span Log In     
                     
                         
@@ -29,6 +29,11 @@
                         
 
 <script setup lang="ts">
+
+definePageMeta({
+    layout:"login"
+})
+
 
 const selected = ref(false);
 const password = ref();
@@ -128,7 +133,7 @@ function togglePasswordView(){
                 display: flex;
                 justify-content: center;
                 gap: 0.5rem;
-                
+                align-items: center;
                 & p{
                     color:#000000;
                     font-weight: 400px;

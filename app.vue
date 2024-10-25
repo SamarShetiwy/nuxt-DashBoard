@@ -1,4 +1,4 @@
 <template lang="pug">
-  div
-  NuxtPage  
+  NuxtLayout
+    NuxtPage
 </template>
