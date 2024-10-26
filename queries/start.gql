@@ -1,0 +1,6 @@
+mutation {
+  login(email: "string", password: "string") {
+    access_token
+    refresh_token
+  }
+}

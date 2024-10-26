@@ -8,6 +8,7 @@
             el-table-column(label="Name" width="200")
                 template(#default="scope")
                     div.avatar.d-flex.gap-2
+                        //- el-avatar(src="../assets/images/Avatar (1).png")
                         UAvatar(size="md" src="../assets/images/Avatar.png" alt="Avatar")
                         div.detail.d-flex.flex-column
                             p.name {{ scope.row.name }}
@@ -25,16 +26,19 @@
             el-table-column(property="" label="")
                 template(#default="scope")
                     div.icons
-                    UIcon(name="heroicons-outline:ellipsis-vertical" :style="{ color: '#98A2B3', fontSize: '24px' }")
-                    UIcon(name="heroicons-outline:ellipsis-vertical" :style="{ color: '#98A2B3', fontSize: '24px' }")
+                        UIcon(name="mdi:circle-off-outline" :style="{ color: 'red', fontSize: '24px' }")
+                        UIcon(name="heroicons-outline:ellipsis-vertical" :style="{ color: '#98A2B3', fontSize: '24px' }")
+        div.pagination.mt-5.mx-4
+                UButton(icon="tabler:arrow-left" color="#344054" variant="solid" label="previous" class="custom-button" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
+                Pagination
+                UButton(icon="tabler:arrow-right" color="#344054" variant="solid" label="Next" class="custom-button" icon-position="right" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
 
+                    
 
-  </template>
-  
-        //- div.pagination
-        //-     UButton(icon="tabler:arrow-left" color="#344054" variant="solid" label="previous" class="custom-button")
-        //-     UPagination( :model-value="1" :inactive-button="{ color: '#667085' }" :active-button="{ color:'red' , variant: 'outline' }"  :total="100"  :prev-button="null"  :next-button="null" )
-        //-     UButton(icon="tabler:arrow-right" color="#344054" variant="solid" label="Next" class="custom-button" icon-position="right")
+                    
+
+</template>
+
 
                     
 
@@ -61,6 +65,10 @@
         font-weight: 500px;
     }
     }
+    & .pagination{
+        display: flex;
+        justify-content: space-between;
+    }
 }
 </style>
 
@@ -72,6 +80,20 @@ interface User {
   name: string
   address: string
 }
+
+const tableData = [
+
+  {
+    date: '2016-05-04',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-01',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+]
 
 </script>
 

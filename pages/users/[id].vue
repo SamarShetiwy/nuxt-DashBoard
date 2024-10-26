@@ -8,8 +8,8 @@
                     UBreadcrumb( class="custom-breadcrumb" :links="[{ label: 'Users', to: '/users ' }, { label: 'user Profile' ,to: '/users/{{id}} '} ] " :style="{ color: 'red' }" )  
                 div.button
                     UButton(icon="hugeicons:lock"  class="custom-button" :style="{ background: 'linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%)',color: '#FFFFFF'  }" variant="solid" label="Unblock")
-                    UButton(icon="icon-park-outline:delete" color="#344054" variant="solid" label="Delete " class="custom-button")
-                    UButton(icon="heroicons-outline:ellipsis-vertical" color="#344054" variant="solid" class="custom-button")
+                    UButton(icon="icon-park-outline:delete" color="#344054" variant="solid" label="Delete " class="custom-button" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
+                    UButton(icon="heroicons-outline:ellipsis-vertical" color="#344054" variant="solid" class="custom-button" )
             div.admin.mt-2
                 div.avatar
                     UAvatar(
@@ -44,7 +44,7 @@
     &  .content-header{
         background-color: #FEF7F7;
         width: 100%;
-        height: 100%;
+        // height: 100%;
         display: flex;
         flex-direction: column;
         &  .pages{

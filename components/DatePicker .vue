@@ -1,41 +1,101 @@
-<script setup lang="ts">
-import { sub, format, isSameDay, type Duration } from 'date-fns'
+<template>
+  <el-radio-group v-model="size" aria-label="size control">
+    <el-radio-button value="large">large</el-radio-button>
+    <el-radio-button value="default">default</el-radio-button>
+    <el-radio-button value="small">small</el-radio-button>
+  </el-radio-group>
+  <div class="demo-date-picker">
+    <div class="block">
+      <span class="demonstration">Default</span>
+      <el-date-picker
+        v-model="value1"
+        type="daterange"
+        range-separator="To"
+        start-placeholder="Start date"
+        end-placeholder="End date"
+        :size="size"
+      />
+    </div>
+    <div class="block">
+      <span class="demonstration">With quick options</span>
+      <el-date-picker
+        v-model="value2"
+        type="daterange"
+        unlink-panels
+        range-separator="To"
+        start-placeholder="Start date"
+        end-placeholder="End date"
+        :shortcuts="shortcuts"
+        :size="size"
+      />
+    </div>
+  </div>
+</template>
 
-const ranges = [
-  { label: 'Last 7 days', duration: { days: 7 } },
-  { label: 'Last 14 days', duration: { days: 14 } },
-  { label: 'Last 30 days', duration: { days: 30 } },
-  { label: 'Last 3 months', duration: { months: 3 } },
-  { label: 'Last 6 months', duration: { months: 6 } },
-  { label: 'Last year', duration: { years: 1 } }
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const size = ref<'default' | 'large' | 'small'>('default')
+
+const value1 = ref('')
+const value2 = ref('')
+
+const shortcuts = [
+  {
+    text: 'Last week',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+      return [start, end]
+    },
+  },
+  {
+    text: 'Last month',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+      return [start, end]
+    },
+  },
+  {
+    text: 'Last 3 months',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+      return [start, end]
+    },
+  },
 ]
-const selected = ref({ start: sub(new Date(), { days: 14 }), end: new Date() })
-
-function isRangeSelected(duration: Duration) {
-  return isSameDay(selected.value.start, sub(new Date(), duration)) && isSameDay(selected.value.end, new Date())
-}
-
-function selectRange(duration: Duration) {
-  selected.value = { start: sub(new Date(), duration), end: new Date() }
-}
 </script>
 
-<template lang="pug">
-    template(#panel="{ close }")
-        .flex.items-center(.sm:divide-x.divide-gray-200.dark:divide-gray-800)
-            .hidden(.sm:flex.flex-col.py-4)
-                UButton(
-                    v-for="(range, index) in ranges"
-                    :key="index"
-                    :label="range.label"
-                    color="gray"
-                    variant="ghost"
-                    class="rounded-none px-6"
-                    :class="[isRangeSelected(range.duration) ? 'bg-gray-100 dark:bg-gray-800' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50']"
-                    truncate
-                    @click="selectRange(range.duration)"
-                    )
-            DatePicker(v-model="selected" @close="close")
+<style scoped>
+.demo-date-picker {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  flex-wrap: wrap;
+}
 
-</template>
+.demo-date-picker .block {
+  padding: 30px 0;
+  text-align: center;
+  border-right: solid 1px var(--el-border-color);
+  flex: 1;
+}
+
+.demo-date-picker .block:last-child {
+  border-right: none;
+}
+
+.demo-date-picker .demonstration {
+  display: block;
+  color: var(--el-text-color-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+</style>
+
 

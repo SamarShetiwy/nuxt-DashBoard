@@ -27,6 +27,7 @@
 <style lang="scss" scoped>
 .container{
     background-color: #FCFCFD;
+    height: 100%;
     
     & .content-header{
         padding:2rem;

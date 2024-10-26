@@ -27,9 +27,6 @@
 
 <script setup lang="ts">
 
-definePageMeta({
-    layout:"login"
-})
 
 const selected = ref(false);
 const password = ref();
