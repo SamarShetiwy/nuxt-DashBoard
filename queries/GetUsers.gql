@@ -1,0 +1,11 @@
+query getUsersQuery {
+    users {
+        id
+        name
+        email
+        role
+        updatedAt
+        creationAt
+        avatar
+    }
+}

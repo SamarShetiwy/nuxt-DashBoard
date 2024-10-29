@@ -7,10 +7,16 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/icon',
     '@element-plus/nuxt',
-    '@vee-validate/nuxt'
+    '@vee-validate/nuxt',
+    'nuxt-graphql-client'
   ],
   css: ['./assets/style.scss'],
   plugins: [
     './plugins/iconify.js'
   ],
+  runtimeConfig: {
+    public: {
+      GQL_HOST: 'https://api.escuelajs.co/graphql'
+    }
+  }
 })
