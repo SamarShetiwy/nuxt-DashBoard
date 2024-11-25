@@ -4,7 +4,8 @@
             h1.content_title Users 
             div.button
                 UButton(icon="i-heroicons-arrow-down-tray" color="#344054" variant="solid" label="export" class="custom-button" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
-                UButton(icon="i-heroicons-plus"  class="custom-button" :style="{ background: 'linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%)',color: '#FFFFFF'  }" variant="solid" label="Add user")
+                NuxtLink(to="/users/profile")
+                    UButton(icon="i-heroicons-plus"  class="custom-button" :style="{ background: 'linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%)',color: '#FFFFFF'  }" variant="solid" label="Add user")
         div.pages
             p Users   
         div.page-info
@@ -28,7 +29,6 @@
 </template>
 
 <script setup >
-import { useRoute } from 'vue-router';
 
 const links = [
   { label: 'Active users', to: '/users/all-users' },

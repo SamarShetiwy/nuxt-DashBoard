@@ -3,7 +3,7 @@
         div.half.half-empty
             div.circle
         div.half.half-form
-            UForm.form( @submit="OnSubmit()")
+            UForm.form()
                 h1 Sign In to your Account
                 p Welcome back! please enter your detail
                 UInput.input(
@@ -26,7 +26,7 @@
                         template( #label)
                             span(style="color: #000000;") Remember me
                     span(style="background: linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;") Forgot Password?
-                UButton.bottom(block ) SignIn
+                UButton.bottom( @click="OnSubmit()" block ) SignIn
                 div.account.mt-2
                     p.mt-1 Don’t have an account?
                     span Sign Up    
@@ -35,15 +35,17 @@
 
 
 <script setup lang="ts">
-// import LOGIN from '../queries/login.gql';
 
 
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
+import { useAuthStore } from '../store/auth';
 
 definePageMeta({
     layout: "login"
 });
+
+
 
 const { errors, handleSubmit, defineField } = useForm({
   validationSchema: yup.object({
@@ -59,6 +61,9 @@ const selected = ref(false);
 const ViewPassword = ref('');
 const showPassword = ref(false);
 
+const router=useRouter();
+const authStore = useAuthStore();
+
 function togglePasswordView(){
     showPassword.value = !showPassword.value;
 }
@@ -67,17 +72,8 @@ const OnSubmit = handleSubmit(async (values) => {
     
     const { email, password } = values
     // console.log(values);
-    try{
-        const { data } = await useAsyncGql({
-        operation: LOGIN,
-        variables: { email, password }
-    });
-        console.log(data);
-        
-        localStorage.setItem('access_token', data.login.access_token);
-        localStorage.setItem('refresh_token', data.login.refresh_token);
-        router.push('/users/all-users');
-        
+    try {
+        await authStore.login(email, password);
         } catch(error){
             console.log('<<<<<<<<<<<<<<<login error' , error);
         }

@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@element-plus/nuxt',
     '@vee-validate/nuxt',
-    'nuxt-graphql-client'
+    'nuxt-graphql-client',
+     '@pinia/nuxt'
   ],
   css: ['./assets/style.scss'],
   plugins: [

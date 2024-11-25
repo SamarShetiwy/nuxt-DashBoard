@@ -8,26 +8,26 @@
                     URadio(:style={color: '#FFFFFF'})
                     p Name
                 div.input
-                    UInput( class="input-size1" v-model="value" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
-                    UInput( class="input-size1" v-model="value" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
+                    UInput( class="input-size1" v-model="value" :style="{color:'#000000', size:'16px' ,boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
+                    UInput( class="input-size1" v-model="value" :style="{ color:'#000000' ,boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
                 div
             div.account
                 div.name
                     p Email address
                 div.input
-                    UInput( class="input-size2" v-model="value" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
+                    UInput( class="input-size2" v-model="value" :style="{ color:'#000000', boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
                 div
             div.account
                 div.name
                     p Password 
                 div.input
-                    UInput( class="input-size2" v-model="value" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
+                    UInput( class="input-size2" v-model="value" :style="{ color:'#000000', boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF'}") 
                 div
             div.account
                 div.name
                     p Role
                 div.input
-                    UInput( class="input-size2" v-model="value" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
+                    UInput( class="input-size2" v-model="value" :style="{ color:'#000000', boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
                 div
             div.account
                 div.name
@@ -73,10 +73,15 @@
                 
                 & .input-size1{
                     width: 244px;
+                    font-size: 16px;
+                    font-weight: 400;
+
                 }
                 & .input-size2{
                     width: 512px;
                     align-content: start;
+                    font-size: 16px;
+                    font-weight: 400;
                 }
 
                 & .file {

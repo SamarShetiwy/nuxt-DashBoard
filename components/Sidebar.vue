@@ -30,11 +30,15 @@
                 div.detail
                     p.name Olivia Rhye
                     p.role Super admin
-            UIcon(name="cuida:logout-outline" style="color:#667085;font-size: 24px;")
+            UIcon(name="cuida:logout-outline" style="color:#667085;font-size: 24px;" @click="handleLogout()")
 </template>
 
 
 <script setup lang="ts">
+
+import { ElMessageBox } from 'element-plus';
+import { useAuthStore } from '../store/auth.ts';
+
 
 const contentOptions = ['Blog', 'Article']; 
 const appManagementOptions = ['Settings', 'Roles'];
@@ -46,7 +50,7 @@ const links = [{
 }, {
     label: 'Users',
     icon: 'ph:users-four',
-    to: '/users'
+    to: '/users/all-users'
 }, {
     label: 'Experts',
     icon: 'hugeicons:time-setting-03',
@@ -66,6 +70,13 @@ const links = [{
     select: true,
 }
 ]
+
+const authStore = useAuthStore();
+const router = useRouter();
+
+const handleLogout = () => {
+  authStore.logout(router); 
+};
 
 </script>
 
