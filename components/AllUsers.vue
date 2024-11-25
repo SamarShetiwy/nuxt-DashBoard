@@ -41,28 +41,28 @@
 
 <script setup lang="ts">
 
-import getUsersQuery from '../queries/GetUsers.gql'
+// import getUsersQuery from '../queries/GetUsers.gql';
 
 const tableData = ref([]);
 
 interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  updatedAt: string;
-  creationAt: string;
-  avatar: string;
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    updatedAt: string;
+    creationAt: string;
+    avatar: string; 
 }
 
 onMounted(async () => {
-  const { data, error } = await useAsyncGql(getUsersQuery);
+    const { data, error } = await useAsyncGql(getUsersQuery);
 
-  if (data.value) {
-    tableData.value = data.value.users || [];
-  } else if (error.value) {
-    console.error("Error loading users:", error.value);
-  }
+    if (data.value) {
+        tableData.value = data.value.users || [];
+    } else if (error.value) {
+        console.error("Error loading users:", error.value);
+    }
 });
 
 </script>

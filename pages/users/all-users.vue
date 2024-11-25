@@ -9,7 +9,10 @@
             p Users   
         div.page-info
             div.active.mt-5
-                UBreadcrumb( class="custom-breadcrumb" :links="[{ label: 'Active users', to: '/users/all-users ' }, { label: 'Blocked users' ,to: '/users/ '} ] " :style="{ color: 'red' }" )
+                UBreadcrumb(class="custom-breadcrumb")
+                    div(v-for="(link, index) in links" :key="index")
+                        a(:href="link.to" :class="{ 'active-link': isActive(link.to) }" :style="isActive(link.to) ? { color: 'red' } : {}")
+                            | {{ link.label }}           
             //- div.active.mt-5
             //-     p.page-active Active users
             //-     p.page-block Blocked users 
@@ -24,7 +27,19 @@
 
 </template>
 
-<script>
+<script setup >
+import { useRoute } from 'vue-router';
+
+const links = [
+  { label: 'Active users', to: '/users/all-users' },
+  { label: 'Blocked users', to: '/users/all-users' }
+];
+
+const route = useRoute();
+
+const isActive = (link) => {
+  return route.path === link; 
+};
 
 </script>
 
@@ -62,23 +77,20 @@
         display: flex;
         gap: 1rem;
     
-        &  .page-active{
-            color: linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%);
-            font-size:16px ;
-            font-weight: 600px;
+            &  .page-active{
+                font-size:16px ;
+                font-weight: 600px;
+            }
+            &  .page-block{
+                font-size:16px ;
+                font-weight: 600px;
+            }
+            &  .page-active:active {
+                color: linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%);
+                cursor: pointer;
 
-
-        }
-        &  .page-block{
-            color: linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%);
-            font-size:16px ;
-            font-weight: 600px;
-
-
-        }
+            }
     }
-
-
     }
 
     & .search{

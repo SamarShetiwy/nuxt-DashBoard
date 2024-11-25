@@ -3,7 +3,7 @@
         div.half.half-empty
             div.circle
         div.half.half-form
-            UForm.form( :state="state" @submit="OnSubmit()")
+            UForm.form( @submit="OnSubmit()")
                 h1 Sign In to your Account
                 p Welcome back! please enter your detail
                 UInput.input(
@@ -11,13 +11,13 @@
                     v-model="email"
                     v-bind="emailAttrs"
                     type="email"
-                    icon="i-heroicons-envelope" color="none" variant="none")
+                    icon="i-heroicons-envelope" variant="none")
                 span.error-message(v-if="errors.email") {{ errors.email}} 
                 UInput.input( 
                 v-model="password"
                 type="password"
                 v-bind="passwordAttrs"
-                :type="showPassword ? 'text' : 'password'" placeholder="Password" icon="ph:lock-key-light" color="none" variant="none")
+                :type="showPassword ? 'text' : 'password'" placeholder="Password" icon="ph:lock-key-light"  variant="none")
                     template(#label)
                         UIcon( :icon ="showPassword ? 'mdi-light:eye-off':'mdi-light:eye-off'" @click='togglePasswordView')
                 span.error-message(v-if="errors.password") {{ errors.password}}
@@ -26,7 +26,7 @@
                         template( #label)
                             span(style="color: #000000;") Remember me
                     span(style="background: linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;") Forgot Password?
-                UButton.bottom(block ) Signup
+                UButton.bottom(block ) SignIn
                 div.account.mt-2
                     p.mt-1 Don’t have an account?
                     span Sign Up    
@@ -45,7 +45,7 @@ definePageMeta({
     layout: "login"
 });
 
-const { errors, handleSubmit, defineField ,state } = useForm({
+const { errors, handleSubmit, defineField } = useForm({
   validationSchema: yup.object({
     email: yup.string().email().required(''),
     password: yup.string().min(6).required(''),
@@ -76,6 +76,7 @@ const OnSubmit = handleSubmit(async (values) => {
         
         localStorage.setItem('access_token', data.login.access_token);
         localStorage.setItem('refresh_token', data.login.refresh_token);
+        router.push('/users/all-users');
         
         } catch(error){
             console.log('<<<<<<<<<<<<<<<login error' , error);

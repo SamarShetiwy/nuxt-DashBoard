@@ -18,7 +18,7 @@
                             span(style="font-weight: bold; color:#000000;") Terms & Conditions
                             |  and our 
                             span(style="font-weight: bold; color:#000000;") Privacy Policy
-                UButton.bottom(block) Signup
+                UButton.bottom(block) SignUp
                 div.account.mt-2
                     p.mt-1  Already have an account? 
                     span Log In     
