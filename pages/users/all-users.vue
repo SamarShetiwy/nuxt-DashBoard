@@ -4,7 +4,7 @@
             h1.content_title Users 
             div.button
                 UButton(icon="i-heroicons-arrow-down-tray" color="#344054" variant="solid" label="export" class="custom-button" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
-                NuxtLink(to="/users/profile")
+                NuxtLink(to="/users/add-user")
                     UButton(icon="i-heroicons-plus"  class="custom-button" :style="{ background: 'linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%)',color: '#FFFFFF'  }" variant="solid" label="Add user")
         div.pages
             p Users   
@@ -24,7 +24,7 @@
                 DatePicker
                 UButton(icon="i-heroicons-plus"  class="custom-button"  color="#344054" variant="solid" label="Filters" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
         div
-            AllUsers
+            UsersAllUsers
 
 </template>
 

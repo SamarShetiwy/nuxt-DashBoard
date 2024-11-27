@@ -25,7 +25,7 @@
                 p Account
             div.line
         div
-            UserEdit        
+            UsersUserEdit        
 
 </template>
 

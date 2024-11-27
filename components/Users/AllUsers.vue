@@ -48,7 +48,7 @@
 <script setup lang="ts">
 
 
-// import { useAuthStore } from '../store/allUsers.ts'; 
+// import { useAllUserStore } from '../store/allUsers.ts'; 
 // const authStore = useAuthStore(); 
 
 // onMounted(async () => {
