@@ -28,7 +28,7 @@
 
 import { useUserStore } from  '../store/user';
 import { useToast } from 'vue-toast-notification';
-// import 'vue-toast-notification/dist/theme-sugar.css';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
 
 const userStore=useUserStore();
@@ -40,7 +40,7 @@ const handleReset = ()=>{
     toast.success('Form reset successfully');
 }
 
-const handleAdd = () => {
+const handleAdd =async () => {
     console.log('add button clicked')
     const data = {
         firstName: userStore.firstName,
@@ -51,9 +51,35 @@ const handleAdd = () => {
         file: userStore.file,
     };
     console.log(data);
-    userStore.setFormData(data);
-    userStore.resetForm();
-    toast.success('Data saved successfully');
+
+    const { data : response }= await useAsyncGql({
+            operation: 'addUser',
+            variables :{
+                data:{
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                    password: data.password,
+                    role: data.role,
+                    file: data.file,
+                },
+            },
+        })
+
+    if (response.addUser) {
+            toast.success('User added successfully', response.addUser.message, {
+                duration: 5000,
+                position: 'top-right',
+            });
+            userStore.setFormData(data);
+            userStore.resetForm();
+        } else {
+            toast.error('Failed to add user', {
+                duration: 5000,
+                position: 'top-right',
+                
+            });
+        }
 };
 
 
