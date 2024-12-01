@@ -37,7 +37,7 @@
 <script setup lang="ts">
 
 import { ElMessageBox } from 'element-plus';
-import { useAuthStore } from '../store/auth.ts';
+import { useAuthStore } from '../stores/auth.js';
 
 
 const contentOptions = ['Blog', 'Article']; 

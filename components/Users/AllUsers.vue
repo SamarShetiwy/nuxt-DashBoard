@@ -31,9 +31,11 @@
                     p {{ scope.row.creationAt }}
             el-table-column(property="" label="")
                 template(#default="scope")
-                    div.icons
+                    div.icons.d-flex.gap-3
                         UIcon(name="mdi:circle-off-outline" :style="{ color: 'red', fontSize: '24px' }")
-                        UIcon(name="heroicons-outline:ellipsis-vertical" :style="{ color: '#98A2B3', fontSize: '24px' }")
+                        //- UIcon(name="heroicons-outline:ellipsis-vertical" :style="{ color: '#98A2B3', fontSize: '24px' }")
+                        UDropdown(:items="items(scope.row.id)" :popper="{ placement: 'left' }")
+                            UButton(color="#98A2B3" :style="{ fontSize: '35px', color: '#98A2B3' }" label="" trailing-icon="heroicons-outline:ellipsis-vertical")
         div.pagination.mt-5.mx-4
                 UButton(icon="tabler:arrow-left" color="#344054" variant="solid" label="previous" class="custom-button" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
                 Pagination
@@ -46,9 +48,26 @@
 </template>
 
 <script setup lang="ts">
+const router = useRouter();
 
 
-// import { useAllUserStore } from '../store/allUsers.ts'; 
+const items = (id: string | number)=>[
+  [{
+    label: 'Edit',
+    icon: 'i-heroicons-pencil-square-20-solid',
+    shortcuts: ['E'],
+    click: () => {
+      router.push(`/users/${id}`); 
+    }
+  }, 
+], [{
+    label: 'Move',
+    icon: 'i-heroicons-arrow-right-circle-20-solid'
+  }],
+]
+
+
+// import { useAllUserStore } from '../stores/allUsers.ts'; 
 // const authStore = useAuthStore(); 
 
 // onMounted(async () => {

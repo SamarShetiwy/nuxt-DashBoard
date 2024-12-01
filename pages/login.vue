@@ -39,7 +39,7 @@
 
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { useAuthStore } from '../store/auth';
+import { useAuthStore } from '../stores/auth';
 
 definePageMeta({
     layout: "login"

@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   ],
   css: ['./assets/style.scss'],
   plugins: [
-    './plugins/iconify.js'
+    './plugin/iconify.js'
   ],
   runtimeConfig: {
     public: {

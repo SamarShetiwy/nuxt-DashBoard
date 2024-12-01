@@ -5,7 +5,7 @@
             div.header
                 h1.content_title Users
                 div.tabs
-                    UBreadcrumb( class="custom-breadcrumb" :links="[{ label: 'Users', to: '/users' }, { label: 'Add User' ,to: '/users/profile '} ] " :style="{ color: 'red' }" )
+                    UBreadcrumb( class="custom-breadcrumb" :links="[{ label: 'Users', to: '/users/all-users' }, { label: 'Add User' ,to: ''} ] " :style="{ color: 'red' }" )
                 div.rest.mt-7
                     div.info
                         p.p1 Add user account
@@ -26,7 +26,7 @@
 
 <script setup>
 
-import { useUserStore } from  '../store/user';
+import { useUserStore } from  '../stores/user';
 import { useToast } from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 

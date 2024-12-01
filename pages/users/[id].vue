@@ -5,7 +5,7 @@
                 h1.content_title Users
             div.pages
                 div.tabs
-                    UBreadcrumb( class="custom-breadcrumb" :links="[{ label: 'Users', to: '/users ' }, { label: 'user Profile' ,to: '/users/{{id}} '} ] " :style="{ color: 'red' }" )  
+                    UBreadcrumb( class="custom-breadcrumb" :links="[{ label: 'Users', to: '/users/all-users ' }, { label: 'user profile' ,to: ''} ] " :style="{ color: 'red' }" )  
                 div.button
                     UButton(icon="hugeicons:lock"  class="custom-button" :style="{ background: 'linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%)',color: '#FFFFFF'  }" variant="solid" label="Unblock")
                     UButton(icon="icon-park-outline:delete" color="#344054" variant="solid" label="Delete " class="custom-button" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
@@ -25,7 +25,7 @@
                 p Account
             div.line
         div
-            UsersUserEdit        
+            UsersEditUser        
 
 </template>
 

@@ -69,7 +69,7 @@
 
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { useUserStore } from  '../store/user';
+import { useUserStore } from  '../stores/user';
 
 
 
