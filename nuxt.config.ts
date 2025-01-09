@@ -11,9 +11,12 @@ export default defineNuxtConfig({
     'nuxt-graphql-client',
      '@pinia/nuxt'
   ],
-  css: ['./assets/style.scss'],
+  css: [
+    './assets/style.scss',
+  ],
   plugins: [
-    './plugin/iconify.js'
+    './plugin/iconify.js',
+    './plugin/toast.ts',
   ],
   runtimeConfig: {
     public: {

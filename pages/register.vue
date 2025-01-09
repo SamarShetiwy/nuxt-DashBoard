@@ -5,10 +5,28 @@
         div.half.half-form
             UForm.form()
                 h1 Sign Up for an Account
-                UInput.input(placeholder="Username" icon="ph:user" color="none" variant="none")
-                UInput.input(placeholder="Email" icon="i-heroicons-envelope" color="none" variant="none") 
-                UInput.input.eye-pass( v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Password" icon="ph:lock-key-light" color="none" variant="none")
-                    template(#append)
+                UInput.input(
+                    placeholder="Username" 
+                    v-model="username"
+                    v-bind="usernameAttrs"
+                    type=""
+                    icon="ph:user" variant="none")
+                span.error-message(v-if="errors.username") {{ errors.username}} 
+                UInput.input(
+                    placeholder="Email" 
+                    v-model="email"
+                    v-bind="emailAttrs"
+                    type="email"
+                    icon="i-heroicons-envelope" variant="none")
+                span.error-message(v-if="errors.email") {{ errors.email}}
+                UInput.input.input.eye-pass(
+                    placeholder="password" 
+                    v-model="password"
+                    v-bind="passwordAttrs"
+                    type="password"
+                    icon="ph:lock-key-light" variant="none")
+                span.error-message(v-if="errors.password") {{ errors.password}}
+                template(#append)
                         UIcon( :icon ="showPassword ? 'mdi-light:eye-off':'mdi-light:eye-off'" @click='togglePasswordView')
                 p.pass Your password must have at least 8 characters
                 UCheckbox.checkbox(v-model="selected" color="primary")
@@ -18,10 +36,10 @@
                             span(style="font-weight: bold; color:#000000;") Terms & Conditions
                             |  and our 
                             span(style="font-weight: bold; color:#000000;") Privacy Policy
-                UButton.bottom(block) SignUp
+                UButton.bottom(@click="OnSubmit()" block) SignIn
                 div.account.mt-2
                     p.mt-1  Already have an account? 
-                    span Log In     
+                    router-link(to="/login") login     
                     
                         
 </template>
@@ -30,18 +48,45 @@
 
 <script setup lang="ts">
 
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
+import { useAuthStore } from '../stores/auth';
+
 definePageMeta({
-    layout:"login"
-})
+    layout: "login"
+});
 
+const { errors, handleSubmit, defineField } = useForm({
+  validationSchema: yup.object({
+    username: yup.string().required(''),
+    email: yup.string().email().required(''),
+    password: yup.string().min(6).required(''),
+  }),
+});
 
+const [username, usernameAttrs] = defineField('username');
+const [email, emailAttrs] = defineField('email');
+const [password, passwordAttrs] = defineField('password');
+const errorMessage = ref('');
 const selected = ref(false);
-const password = ref();
+const ViewPassword = ref('');
 const showPassword = ref(false);
+
+const router=useRouter();
+const authStore = useAuthStore();
+
 
 function togglePasswordView(){
     showPassword.value = !showPassword.value;
 }
+
+const OnSubmit = handleSubmit((values) => {
+    const { username,email, password } = values
+    console.log(values);  
+    authStore.register(values.username, values.email, values.password);
+    router.push('/login');
+});
+
 
 </script>
 
@@ -75,6 +120,12 @@ function togglePasswordView(){
         flex-direction: column;
         gap: 1rem;
         padding: 5rem 2rem;
+
+            & .error-message{
+                color: red;
+                font-size: 14px;
+                margin-top: 10px;
+            }
 
             & h1{
                 font-family: IBM Plex Sans;

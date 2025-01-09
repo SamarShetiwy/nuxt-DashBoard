@@ -25,13 +25,25 @@
                 p Account
             div.line
         div
-            UsersEditUser        
+            UsersEditUser(:userData="userData" @updateUser="updateUserData")        
 
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useUserStore } from '../stores/user.ts';
 
+const userStore = useUserStore();
+const userData = ref({ 
+  name: '', 
+  email: '', 
+  role: '' 
+});
 
+const updateUserData = (updatedData) => {
+  userData.value = updatedData; 
+  console.log('Updated user data:', updatedData);
+};
 
 </script>
 

@@ -32,7 +32,7 @@
             el-table-column(property="" label="")
                 template(#default="scope")
                     div.icons.d-flex.gap-3
-                        UIcon(name="mdi:circle-off-outline" :style="{ color: 'red', fontSize: '24px' }")
+                        UIcon(name="mdi:circle-off-outline" :style="{ color: 'red', fontSize: '24px' }"  @click="store.deleteUser(scope.row.id)")
                         //- UIcon(name="heroicons-outline:ellipsis-vertical" :style="{ color: '#98A2B3', fontSize: '24px' }")
                         UDropdown(:items="items(scope.row.id)" :popper="{ placement: 'left' }")
                             UButton(color="#98A2B3" :style="{ fontSize: '35px', color: '#98A2B3' }" label="" trailing-icon="heroicons-outline:ellipsis-vertical")
@@ -48,7 +48,12 @@
 </template>
 
 <script setup lang="ts">
+
+import { useAllUserStore } from '../stores/allUsers.ts';
+
+
 const router = useRouter();
+const store = useAllUserStore();
 
 
 const items = (id: string | number)=>[
@@ -107,6 +112,8 @@ onMounted(async () => {
         console.error("No token found!");
     }
 });
+
+ 
 
 
 </script>

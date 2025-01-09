@@ -29,7 +29,7 @@
                 UButton.bottom( @click="OnSubmit()" block ) SignIn
                 div.account.mt-2
                     p.mt-1 Don’t have an account?
-                    span Sign Up    
+                    router-link(to="/register") Sign Up    
                     
 </template>
 
@@ -82,6 +82,8 @@ const OnSubmit = handleSubmit(async (values) => {
         console.log('>>>>>>>>>>>>> validate-error:', errors)
 
     })
+
+
 
 
 

@@ -28,7 +28,7 @@
 
 import { useUserStore } from  '../stores/user';
 import { useToast } from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
+// import 'vue-toast-notification/dist/theme-sugar.css';
 
 
 const userStore=useUserStore();
@@ -43,8 +43,7 @@ const handleReset = ()=>{
 const handleAdd =async () => {
     console.log('add button clicked')
     const data = {
-        firstName: userStore.firstName,
-        lastName: userStore.lastName,
+        name: userStore.name,
         email: userStore.email,
         password: userStore.password,
         role: userStore.role,
@@ -56,8 +55,7 @@ const handleAdd =async () => {
             operation: 'addUser',
             variables :{
                 data:{
-                    firstName: data.firstName,
-                    lastName: data.lastName,
+                    name: data.name,
                     email: data.email,
                     password: data.password,
                     role: data.role,
