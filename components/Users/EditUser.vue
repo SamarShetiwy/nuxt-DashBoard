@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.account-page-info.pt-0.flex.justify-between.p-11
+    div.account-page-info.pt-0.flex.justify-between.p-7
         div.info.mt-11
             p Account info {{userId}}
             div.account-info.mt-5
@@ -101,11 +101,20 @@ const res = data?.value?.updateUser;
     display: flex;
     gap: 2rem;
 
-    &  .info-edit{
-        display: flex;
-        justify-content: space-between;
-        // width: 10%;
-        height: fit-content;
+    &  .info{
+        background: #FFFFFF;
+        width: 90%;
+        padding: 1rem;
+
+        & .account-info{
+            
+            
+            .el-input{
+                border: none;
+
+            }
+        }
+
     }
     & .page-info{
         padding:  0rem 1.5rem;
@@ -123,11 +132,6 @@ const res = data?.value?.updateUser;
                     flex-direction: column;
                     gap: 0.5rem;
                 }
-                // &  .form-group{
-                //     .inputStyles {
-                //         color: rgb(23, 122, 68) !important;
-                //     }
-                // }
                 &.custom-color {
                     color: red;
                 } 

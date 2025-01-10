@@ -10,16 +10,16 @@
                 div.input
                     div
                         UInput( class="input-size1" 
-                        v-model="userStore.firstName" 
-                        v-bind="firstNameAttrs" 
+                        v-model="userStore.name" 
+                        v-bind="nameAttrs" 
                         :style="{color:'#000000', size:'16px' ,boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
-                        span.error-message(v-if="errors.lastName") {{ errors.lastName }}
+                        span.error-message(v-if="errors.name") {{ errors.name }}
                     div
                         UInput( class="input-size1" 
-                        v-model="userStore.lastName"
-                        v-bind="lastNameAttrs" 
+                        v-model="userStore.name"
+                        v-bind="nameAttrs" 
                         :style="{ color:'#000000' ,boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
-                        span.error-message(v-if="errors.lastName") {{ errors.lastName }} 
+                        span.error-message(v-if="errors.name") {{ errors.name }} 
                 div
             div.account
                 div.name
@@ -38,7 +38,7 @@
                 div.input
                     UInput( class="input-size2"
                     v-model="userStore.password"  
-                    v-bind="PasswordAttrs" 
+                    v-bind="passwordAttrs" 
                     :style="{ color:'#000000', boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF'}") 
                     span.error-message(v-if="errors.password") {{ errors.password }}
                 div
@@ -56,10 +56,12 @@
                 div.name
                     p Photo
                 div.input
-                    UAvatar( src="https://avatars.githubusercontent.com/u/7547335?v=4" size="2xl")
+                    UAvatar(v-if="avatar" :src="avatarUrl" size="2xl")
+                    div(v-else)
+                        UAvatar(:src="'https://avatars.githubusercontent.com/u/7547335?v=4'" size="2xl")
                     div.file
-                        UInput( type="file"  v-model="userStore.file" v-bind="fileAttrs" placeholder="click or drag and drop" size="2xs" icon="icon-park:upload-two" class="input-size3" :style="{ }") 
-                        span.error-message(v-if="errors.file") {{ errors.file }}
+                        UInput(type="file" v-model="avatar"  v-bind="avatarAttrs"  @change="handleFileChange" placeholder="click or drag and drop" size="2xs" icon="icon-park:upload-two")
+                    span.error-message(v-if="errors.avatar") {{ errors.avatar }}
                 div
         
         
@@ -72,65 +74,72 @@ import * as yup from 'yup';
 import { useUserStore } from  '../stores/user';
 
 
-
 const { errors, handleSubmit, defineField, resetField } = useForm({
-    validationSchema: yup.object({
-        firstName: yup
-        .string()
-        .matches(/^[a-zA-Z\s]*$/, 'First name must contain only letters and spaces')
-        .required('First name is required'),
-        
-        lastName: yup
-        .string()
-        .matches(/^[a-zA-Z\s]*$/, 'Last name must contain only letters and spaces')
-        .required('Last name is required'),
-        
-        email: yup
-        .string()
-        .email('Please enter a valid email address')
-        .required('Email is required'),
-        
-        password: yup
-        .string()
-        .min(6, 'Password must be at least 6 characters long')
-        .required('Password is required'),
+  validationSchema: yup.object({
+    name: yup
+      .string()
+      .matches(/^[a-zA-Z\s]*$/, 'name must contain only letters and spaces')
+      .required(' name is required'),
 
-        role: yup
-        .string()
-        .required('Role is required'),
+    email: yup
+      .string()
+      .email('Please enter a valid email address')
+      .required('Email is required'),
 
-        file: yup
-        .mixed()
-        .required('File is required'),
+    password: yup
+      .string()
+      .min(6, 'Password must be at least 6 characters long')
+      .required('Password is required'),
 
+    role: yup
+      .string()
+      .required('Role is required'),
+
+    avatar: yup
+    .mixed()
+    .required('File is required')
+    .test('fileSize', 'File is too large', value => {
+      return value && value.size <= 2 * 1024 * 1024;  // التحقق من حجم الملف (2MB كحد أقصى)
+    })
+    .test('fileType', 'Invalid file type', value => {
+      return value && ['image/jpeg', 'image/png'].includes(value.type);  // التأكد من أن الصورة تكون إما PNG أو JPEG
     }),
+})
 });
+const userStore = useUserStore();
 
-const userStore=useUserStore();
-
-const [firstName, firstNameAttrs] = defineField('firstName', {
-    initialValue: userStore.firstName, 
-});
-
-const [lastName, lastNameAttrs] = defineField('lastName', {
-    initialValue: userStore.lastName, 
+const [name, nameAttrs] = defineField('name', {
+  initialValue: userStore.name,
 });
 
 const [email, emailAttrs] = defineField('email', {
-    initialValue: userStore.email, 
+  initialValue: userStore.email,
 });
 
-const [Password, PasswordAttrs] = defineField('password', {
-    initialValue: userStore.password, 
+const [password, passwordAttrs] = defineField('password', {
+  initialValue: userStore.password,
 });
 
 const [role, roleAttrs] = defineField('role', {
-    initialValue: userStore.role, 
+  initialValue: userStore.role,
 });
 
-const [file, fileAttrs] = defineField('file', {
-    initialValue: userStore.file,
+const [avatar, avatarAttrs] = defineField('avatar', {
+  initialValue: userStore.avatar,
 });
+
+
+const avatarUrl = ref(null);
+
+// الدالة لتغيير الصورة
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    avatarUrl.value = URL.createObjectURL(file); // تحميل الصورة من الملف
+    avatar.value = file; // تخزين الملف في avatar
+  }
+};
+
 
 </script>
 

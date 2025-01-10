@@ -1,6 +1,6 @@
 <template lang="pug">
     div.container
-        div.content-header
+        div.content-header.p-11
             div.content
                 h1.content_title Users
             div.pages

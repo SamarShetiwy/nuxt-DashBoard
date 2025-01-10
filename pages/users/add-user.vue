@@ -27,58 +27,55 @@
 <script setup>
 
 import { useUserStore } from  '../stores/user';
-import { useToast } from 'vue-toast-notification';
+import { addUserStore } from  '../stores/addUser';
+import { useToast} from 'vue-toast-notification';
 // import 'vue-toast-notification/dist/theme-sugar.css';
 
 
 const userStore=useUserStore();
+const newUserStore =addUserStore();
 const toast = useToast();
 
+const newUser = {
+  name: newUserStore.name || ' moro',
+  email: newUserStore.email || 'samar@example.com',
+  password: newUserStore.password || '12356',
+  role: newUserStore.role || 'customer',
+  avatar: newUserStore.avatar || 'https://moro.com/default-avatar.jpg'
+};
+
+console.log(newUser);
+
+const handleAdd = async () => {
+  try {
+    const addUser = await newUserStore.addUser(newUser);
+
+    if (addUser) {
+      toast.success('User added successfully', {
+        duration: 5000,
+        position: 'top-right',
+      });
+      store.users.unshift(addUser);
+    } else {
+      toast.error('User addition failed', {
+        duration: 5000,
+        position: 'top-right',
+      });
+    }
+  } catch (error) {
+    console.error('Failed to add user:', error);
+    toast.error('Error adding user', {
+      duration: 5000,
+      position: 'top-right',
+    });
+  }
+};
+
+
 const handleReset = ()=>{
-    console.log('reset button clicked')
     userStore.resetForm();
     toast.success('Form reset successfully');
 }
-
-const handleAdd =async () => {
-    console.log('add button clicked')
-    const data = {
-        name: userStore.name,
-        email: userStore.email,
-        password: userStore.password,
-        role: userStore.role,
-        file: userStore.file,
-    };
-    console.log(data);
-
-    const { data : response }= await useAsyncGql({
-            operation: 'addUser',
-            variables :{
-                data:{
-                    name: data.name,
-                    email: data.email,
-                    password: data.password,
-                    role: data.role,
-                    file: data.file,
-                },
-            },
-        })
-
-    if (response.addUser) {
-            toast.success('User added successfully', response.addUser.message, {
-                duration: 5000,
-                position: 'top-right',
-            });
-            userStore.setFormData(data);
-            userStore.resetForm();
-        } else {
-            toast.error('Failed to add user', {
-                duration: 5000,
-                position: 'top-right',
-                
-            });
-        }
-};
 
 
 </script>

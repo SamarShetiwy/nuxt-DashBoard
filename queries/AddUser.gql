@@ -3,6 +3,7 @@ mutation addUser($data: CreateUserDto!) {
     id
     email
     name
+    password
     role
     avatar
     creationAt

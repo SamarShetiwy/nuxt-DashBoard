@@ -3,7 +3,7 @@
         div.users
             h1 All users
             UIcon(name="heroicons-outline:ellipsis-vertical" :style="{ color: '#98A2B3', fontSize: '24px' }")
-        el-table(:data="tableData").d-flex.gap-2
+        el-table( :data="store.users").d-flex.gap-2
             el-table-column(type="selection" width="55")
             el-table-column(label="Name" width="200")
                 template(#default="scope")
@@ -31,7 +31,7 @@
                     p {{ scope.row.creationAt }}
             el-table-column(property="" label="")
                 template(#default="scope")
-                    div.icons.d-flex.gap-3
+                    div.icons.d-flex.gap-3.cursor-pointer
                         UIcon(name="mdi:circle-off-outline" :style="{ color: 'red', fontSize: '24px' }"  @click="store.deleteUser(scope.row.id)")
                         //- UIcon(name="heroicons-outline:ellipsis-vertical" :style="{ color: '#98A2B3', fontSize: '24px' }")
                         UDropdown(:items="items(scope.row.id)" :popper="{ placement: 'left' }")
@@ -72,52 +72,19 @@ const items = (id: string | number)=>[
 ]
 
 
-// import { useAllUserStore } from '../stores/allUsers.ts'; 
-// const authStore = useAuthStore(); 
-
-// onMounted(async () => {
-    // if (typeof authStore.fetchUsers === 'function') {
-    //   await authStore.fetchUsers();
-    // } else {
-    //   console.error('fetchUsers is not a function');
-    // }
-
-// });
-
-const tableData = ref([]);
-
-interface User {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-    updatedAt: string;
-    creationAt: string;
-    avatar: string; 
-}
-
 onMounted(async () => {
-    const token = getAccessToken();
-
-    if (token) {
-        const { data, error } = await useAsyncGql("getUsersQuery");
-
-        if (data.value) {
-            tableData.value = data.value.users || [];
-            console.log(data.value);
-        } else if (error.value) {
-            console.error("Error loading users:", error.value);
-        }
-    } else {
-        console.error("No token found!");
-    }
+  try {
+    await store.fetchUsers();
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
 });
 
  
 
 
 </script>
-                    
+
 
 
 

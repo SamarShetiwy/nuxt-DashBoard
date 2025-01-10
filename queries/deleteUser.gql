@@ -1,4 +1,2 @@
-mutation deleteUser($id: ID!) {
-  deleteUser(id: $id)
-}
+                        UIcon(name="mdi:circle-off-outline" :style="{ color: 'red', fontSize: '24px' }"  @click="store.deleteUser(scope.row.id)")
 

@@ -16,10 +16,8 @@ export const useAuthStore = defineStore('auth', {
         refreshToken: getRefreshToken(),
         }),
     actions: {
-
       register(username: string, email: string, password: string) {
         this.user = { username, email, password };
-        // Here you can save the user data in localStorage or handle authentication as needed
         console.log('User registered:', this.user);
       },
       async login(email: string, password: string) {
@@ -32,8 +30,8 @@ export const useAuthStore = defineStore('auth', {
 
               setAccessToken(data.value.login.access_token);
               setRefreshToken(data.value.login.refresh_token);
-              
               this.accessToken = data.value.login.access_token;
+              this.user = data.value.login.user || null;
               const router = useRouter();
               router.push('/users/all-users');
           } else {
