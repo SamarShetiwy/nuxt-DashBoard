@@ -7,6 +7,8 @@
 <style scoped lang="scss">
 .container{
     display: flex;
+    height: 100vh;
+    width: 100%;
 }
 
 

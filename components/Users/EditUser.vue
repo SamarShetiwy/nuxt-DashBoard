@@ -1,6 +1,6 @@
 <template lang="pug">
-    div.account-page-info.pt-0.flex.justify-between.p-7
-        div.info.mt-11
+    div.account-page-info.pt-0.flex.justify-between.px-7
+        div.info.mt-5
             p Account info {{userId}}
             div.account-info.mt-5
                 el-form(:model="userStore" label-position="top" label-width="120px")
@@ -93,7 +93,7 @@ const res = data?.value?.updateUser;
 
 <style lang="scss" scoped>
 .container {
-    width: 100%;
+    // width: 100%;
     // height: 100vh;
 }
 .account-page-info{

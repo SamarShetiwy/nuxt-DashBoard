@@ -21,7 +21,7 @@
                             //- UIcon
                             p.name Olivia Rhye
                         p.role U123456781
-            div.mt-7.account
+            div.mt-1.account
                 p Account
             div.line
         div
@@ -51,12 +51,12 @@ const updateUserData = (updatedData) => {
 .container {
     display: flex;
     flex-direction: column;
-    // height: 100%;
+    height: 100%;
 
     &  .content-header{
         background-color: #FEF7F7;
         width: 100%;
-        // height: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
         &  .pages{
