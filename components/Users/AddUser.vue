@@ -3,62 +3,52 @@
         div.page-info.pt-5
             h2 Account info
         div.info-profile.mt-11
-            div.account(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
-                div.name
-                    //- URadio(:style={color: '#FFFFFF'})
-                    p Name
-                div.input
-                        UInput( class="input-size" 
-                            v-model="name" 
-                            v-bind="nameAttrs" 
+            form(@submit.prevent).flex.flex-col.gap-5
+                div.field.account(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
+                    label.name(for="name") Name
+                    div.input
+                        UInput(  class="input-size" id="name" v-model="formData.name" v-bind="nameAttrs"
                             :style="{color:'#000000', size:'16px' ,boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
                         span.error-message(v-if="errors.name") {{ errors.name }}
-                div
-            div.account(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
-                div.name
-                    p Email address
-                div.input
-                    UInput( class="input-size" 
-                            v-model="email"  
-                            v-bind="emailAttrs"
-                            :style="{ color:'#000000', boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
-                    span.error-message(v-if="errors.email") {{ errors.email }}
-                div
-            div.account(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
-                div.name
-                    p Password 
-                div.input
-                    UInput( class="input-size"
-                        v-model="password"  
-                        v-bind="passwordAttrs" 
-                        :style="{ color:'#000000', boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF'}") 
-                    span.error-message(v-if="errors.password") {{ errors.password }}
-                div
-            div.account(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
-                div.name
-                    p Role
-                div.input
-                    UInput( class="input-size" 
-                        v-model="role"  
-                        v-bind="roleAttrs"  
-                        :style="{ color:'#000000', boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }") 
-                    span.error-message(v-if="errors.role") {{ errors.role }}
-                div
-            div.account(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
-                div.name
-                    p Photo
-                div.input(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
-                    div.flex.gap-3
-                        UAvatar.mt-2(v-if="avatar" :src="avatarUrl" size="2xl")
-                        div.mt-2(v-else)
+                    div
+                div.field.account(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
+                    label.name(for="email") Email
+                    div.input
+                        UInput(  class="input-size" id="email" v-model="formData.email"  v-bind="emailAttrs"
+                            :style="{color:'#000000', size:'16px' ,boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
+                        span.error-message(v-if="errors.email") {{ errors.email }}
+                    div
+                div.field.account(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
+                    label.name(for="password") Password
+                    div.input
+                        UInput(id="password" type="password" v-model="formData.password"  v-bind="passwordAttrs" class="input-size"
+                            :style="{color:'#000000', size:'16px' ,boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
+                        span.error-message(v-if="errors.password") {{ errors.password }}
+                    div
+                div.field.account(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
+                    label.name(for="role") Role
+                    div.input
+                        UInput(id="role" v-model="formData.role" class="input-size"  v-bind="roleAttrs" 
+                            :style="{color:'#000000', size:'16px' ,boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
+                        span.error-message(v-if="errors.role") {{ errors.role }}
+                    div
+                div.field.account(class="flex flex-col justify-between align-between gap-2  md:flex-row align-center")
+                    label.name(for="avatar") Photo
+                    div.input.flex.gap-3
+                        div.flex.gap-3
                             UAvatar(:src="'https://avatars.githubusercontent.com/u/7547335?v=4'" size="2xl")
-                        div.file
-                            UInput(type="file" v-model="avatar"  v-bind="avatarAttrs"  @change="handleFileChange" placeholder="click or drag and drop" size="2xs" icon="icon-park:upload-two"   :style="{ display: 'flex', flexDirection: 'column', alignItems: 'center' }"                            )
-                    span.error-message(v-if="errors.avatar") {{ errors.avatar }}
-              
-                
-        
-        
+                            UInput.avatar(
+                                    class="avatar"
+                                    id="avatar" 
+                                    type="file"
+                                    v-bind="avatarAttrs"
+                                    @change="handleFileChange"
+                                    placeholder="click or drag and drop"
+                                    size="2xs"
+                                    icon="icon-park:upload-two"
+                                    :style="{ display: 'flex', flexDirection: 'column', alignItems: 'center' }") 
+                        span.error-message(v-if="errors.avatar") {{ errors.avatar }}
+                    div
 </template>
 
 <script setup>
@@ -96,14 +86,16 @@ const { errors, handleSubmit, defineField, resetField } = useForm({
       return value && value.size <= 2 * 1024 * 1024;  
     })
     .test('fileType', 'Invalid file type', value => {
-      return value && ['image/jpeg', 'image/png'].includes(value.type);  
+        return value && ['image/jpeg', 'image/png'].includes(value.type);  
     }),
 })
 });
 const userStore = useUserStore();
-// defineProps({
-//     newUserStore: Object,
-// })
+
+defineProps({
+    formData: Object,
+
+})
 
 const [name, nameAttrs] = defineField('name', {
     initialValue: '',
@@ -122,16 +114,12 @@ const [role, roleAttrs] = defineField('role', {
 });
 
 const [avatar, avatarAttrs] = defineField('avatar', {
-    initialValue: '',
+    initialValue:'https://avatars.githubusercontent.com/u/7547335?v=4',
 });
 
-
-const avatarUrl = ref(null); // الرابط الذي يحتوي على الصورة المعروضة
-
-// الدالة للتعامل مع تغيير الملف
+const avatarUrl = ref(null); 
 const handleFileChange = (event) => {
   const file = event.target.files[0];
-
   if (file) {
     const validTypes = ['image/png', 'image/jpeg'];
     if (!validTypes.includes(file.type)) {
@@ -139,27 +127,18 @@ const handleFileChange = (event) => {
       return;
     }
 
-    const maxSize = 2 * 1024 * 1024;
+    const maxSize = 2 * 1024 * 1024; 
     if (file.size > maxSize) {
       errors.value.avatar = 'File size is too large. Maximum allowed size is 2MB.';
       return;
     }
 
-    avatarUrl.value = URL.createObjectURL(file);
-    avatar.value = file;
-    errors.value.avatar = null; 
-  } else {
-    errors.value.avatar = 'No file selected.';
+    formData.avatar = file; 
+ avatarUrl.value = URL.createObjectURL(file); // عرض معاينة الصورة
+    errors.value.avatar = null;  
   }
 };
 
-// const handleFileChange = (event) => {
-//   const file = event.target.files[0];
-//   if (file) {
-//     avatarUrl.value = URL.createObjectURL(file);
-//     avatar.value = file; 
-//   }
-// };
 
 
 </script>
@@ -207,7 +186,7 @@ const handleFileChange = (event) => {
                             width: 300px;
                         }
                     }
-                & .file {
+                & .avatar {
                         width: 428px;
                         height: 104px;
                         border-radius: 10px;
@@ -220,7 +199,7 @@ const handleFileChange = (event) => {
                         align-items: center; 
                         cursor: pointer;
                         padding: 1rem 2rem 1rem 2rem; 
-                        }
+                    }
                     @media (max-width: 657px) {
                         .file {
                             width: 250px;

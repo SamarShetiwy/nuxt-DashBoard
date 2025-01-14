@@ -14,7 +14,7 @@
                     UButton(  label="Add" @click="handleAdd" class="custom-button px-3 py-2 sm:px-6 sm:py-3" size="lg" :style="{ background: 'linear-gradient(90deg, #EF3E2C 0%, #E71F63 100%)',color: '#FFFFFF'  }" variant="solid")
         div.line.my-5  
         div.content-form
-            UsersAddUser(:newUserStore="newUserStore")
+          UsersAddUser(:formData="formData" :handleReset="handleReset")
         div.line.mt-11      
         div.rest(class="sm:mt-[3rem] mt-7") 
             div
@@ -38,19 +38,18 @@ const newUserStore =addUserStore();
 const toast = useToast();
 const store = useAllUserStore();
 
-
+const formData = reactive({
+  name: '',
+  email: '',
+  password: '',
+  role: '',
+  avatar: '' || 'https://example.com/default-avatar.jpg'
+});
 
 const handleAdd = async () => {
   try {
     
-    const newUser = {
-        name: newUserStore.name || ' moro',
-        email: newUserStore.email || 'samar@example.com',
-        password: newUserStore.password || '12356',
-        role: newUserStore.role || 'customer',
-        avatar: newUserStore.avatar || 'https://moro.com/default-avatar.jpg'
-      };
-      
+    const newUser = { ...formData }; 
     console.log(newUser);
     const addUser = await newUserStore.addUser(newUser);
 
@@ -88,8 +87,8 @@ const handleReset = ()=>{
 <style lang="scss" scoped>
 .container{
     background-color: #FCFCFD;
-    height: 100%;
-    width: 100%;
+    // height: 100%;
+    // width: 100%;
     
     & .content-header{
         padding:2rem;

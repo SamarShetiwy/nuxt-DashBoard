@@ -1,7 +1,7 @@
 <template lang="pug">
     div.container
-            Sidebar
-            slot
+        Sidebar
+        slot
 </template>
 
 <style scoped lang="scss">
@@ -10,6 +10,7 @@
     height: 100vh;
     width: 100%;
 }
+
 
 
 </style>

@@ -1,43 +1,46 @@
 <template lang="pug">
-    div
-        div.tableContainer.table.mt-2.pb-11(style=" border: 1px solid #ddd; border-radius: 8px;")
+        div.tableContainer.mt-2.pb-11(style=" border: 1px solid #ddd; border-radius: 8px;")
             div.users
                 h1 All users
                 UIcon(name="heroicons-outline:ellipsis-vertical" :style="{ color: '#98A2B3', fontSize: '24px' }")
-            el-table.tableUser( :data="store.users").d-flex.gap-11
+            el-table.tableUser( :data="store.users").flex.gap-5
                 el-table-column(type="selection" width="55")
-                el-table-column(label="Name" width="200")
+                el-table-column(label="Name" width="200" label-class-name="custom-label")
                     template(#default="scope")
-                        div.avatar.d-flex.gap-2
+                        div.avatar.flex.gap-2
                             //- el-avatar(src="../assets/images/Avatar (1).png")
                             UAvatar(size="md"  :src="scope.row.avatar" alt="Avatar")
-                            div.detail.d-flex.flex-column
+                            div.detail.flex.flex-col
                                 p.name {{ scope.row.name }}
                                 p.role {{ scope.row.role }}
-                el-table-column( property="Email" label="Email" width="120")
-                    template(#default="scope") {{ scope.row.email }}
-                el-table-column(property="Username" label="Username" width="120")
-                    template(#default="scope") {{ scope.row.name }}
-                el-table-column(property="Mobile number" label="Mobile number" width="150")
-                    template(#default="scope") 01002542468
-                el-table-column(property="Region" label="Region" width="150")
-                    template(#default="scope") {{ scope.row.updatedAt }}
-                el-table-column(property="createAt" label="createAt"  width="150")
+                el-table-column( property="Email" label="Email" width="150"  label-class-name="custom-label")
+                    template(#default="scope") 
+                        p {{ scope.row.email }}
+                el-table-column(property="Username" label="Username" width="120"  label-class-name="custom-label")
+                    template(#default="scope") 
+                        p {{ scope.row.name }}
+                el-table-column(property="Mobile number" label="Mobile number" width="150"  label-class-name="custom-label")
+                    template(#default="scope")
+                        p  01002542468
+                el-table-column(property="Region" label="Region" width="150"  label-class-name="custom-label")
+                    template(#default="scope") 
+                        p  {{ scope.row.updatedAt }}
+                el-table-column(property="createAt" label="createAt"  width="150"  label-class-name="custom-label")
                     template(#header)  
-                        div.d-flex.justify-center.gap-5.align-items-center
-                            span createAt
-                            UIcon(name="solar:arrow-down-linear" :style="{ color: '#98A2B3', fontSize: '19px' }")
+                        div.flex.gap-3.align-center
+                            span CreateAt
+                            UIcon(name="solar:arrow-down-linear"  :style="{ color: '#98A2B3', fontSize: '19px' }")
                     template(#default="scope")
                         div.createAt
                         p {{ scope.row.creationAt }}
-                el-table-column(property="" label=""  width="200")
+                el-table-column(property="" label=""  width="200"  label-class-name="custom-label")
                     template(#default="scope")
-                        div.icons.d-flex.gap-3.cursor-pointer
+                        div.icons.flex.gap-5.cursor-pointer.justify-center
                             UIcon(name="mdi:circle-off-outline" :style="{ color: 'red', fontSize: '24px' }"  @click="store.deleteUser(scope.row.id)")
                             //- UIcon(name="heroicons-outline:ellipsis-vertical" :style="{ color: '#98A2B3', fontSize: '24px' }")
                             UDropdown(:items="items(scope.row.id)" :popper="{ placement: 'left' }")
                                 UButton(color="#98A2B3" :style="{ fontSize: '35px', color: '#98A2B3' }" label="" trailing-icon="heroicons-outline:ellipsis-vertical")
-            div.pagination.mt-5.mx-4
+            div.pagination.mt-5.px-5
                     UButton(icon="tabler:arrow-left" color="#344054" variant="solid" label="previous" class="custom-button" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
                     Pagination
                     UButton(icon="tabler:arrow-right" color="#344054" variant="solid" label="Next" class="custom-button" icon-position="right" :style="{ boxShadow: '0px 1px 2px 0px #1018280D', border: '1px solid #DDDCD8', backgroundColor: '#FFFFFF' }")
@@ -94,7 +97,13 @@ onMounted(async () => {
 .tableContainer{
     border: 1px solid #DDDCD8;
     border-radius: 10px;
-    width: 100%; 
+    // width: 100%;
+    
+    & .custom-label {
+        font-size: 1rem; 
+        font-weight: bold; 
+        color: #333; 
+    }
 
     & .tableUser{
         height: 100vh;
